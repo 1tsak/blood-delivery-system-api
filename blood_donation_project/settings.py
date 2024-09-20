@@ -1,6 +1,9 @@
 import os
 from pathlib import Path
 from django.core.exceptions import ImproperlyConfigured
+from dotenv import load_dotenv
+
+load_dotenv()  # Load environment variables from .env file
 
 def get_env_variable(var_name):
     try:
@@ -18,7 +21,7 @@ SECRET_KEY = get_env_variable('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = get_env_variable('DEBUG') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = get_env_variable('ALLOWED_HOSTS').split(',')
 
 # Application definition
 INSTALLED_APPS = [
@@ -34,21 +37,70 @@ INSTALLED_APPS = [
     'dj_rest_auth',
 ]
 
-# ... (other settings)
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+ROOT_URLCONF = 'blood_donation_project.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'blood_donation_project.wsgi.application'
 
 # Configure database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': get_env_variable('DATABASE_URL').split('/')[-1],
-        'USER': get_env_variable('DATABASE_URL').split('/')[2].split(':')[0],
-        'PASSWORD': get_env_variable('DATABASE_URL').split('/')[2].split(':')[1].split('@')[0],
-        'HOST': get_env_variable('DATABASE_URL').split('@')[1].split(':')[0],
-        'PORT': get_env_variable('DATABASE_URL').split(':')[-1],
+        'NAME': get_env_variable('DB_NAME'),
+        'USER': get_env_variable('DB_USER'),
+        'PASSWORD': get_env_variable('DB_PASSWORD'),
+        'HOST': get_env_variable('DB_HOST'),
+        'PORT': get_env_variable('DB_PORT'),
     }
 }
 
-# ... (other settings)
+# Password validation
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+# Internationalization
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
 
 # Configure email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -68,3 +120,12 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'delivery.DeliveryStaff'
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Default primary key field type
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
