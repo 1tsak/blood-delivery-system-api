@@ -8,226 +8,40 @@
     },
     "item": [
         {
-            "name": "Delivery Staff",
-            "item": [
-                {
-                    "name": "List Delivery Staff",
-                    "request": {
-                        "method": "GET",
-                        "url": "{{base_url}}/api/delivery-staff/"
-                    }
-                },
-                {
-                    "name": "Create Delivery Staff",
-                    "request": {
-                        "method": "POST",
-                        "url": "{{base_url}}/api/delivery-staff/",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": {
-                                "username": "staff1",
-                                "password": "password123",
-                                "email": "staff1@example.com",
-                                "phone_number": "1234567890",
-                                "address": "123 Main St"
-                            }
-                        }
-                    }
-                },
-                {
-                    "name": "Retrieve Delivery Staff",
-                    "request": {
-                        "method": "GET",
-                        "url": "{{base_url}}/api/delivery-staff/1/"
-                    }
-                },
-                {
-                    "name": "Update Delivery Staff",
-                    "request": {
-                        "method": "PUT",
-                        "url": "{{base_url}}/api/delivery-staff/1/",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": {
-                                "email": "newemail@example.com"
-                            }
-                        }
-                    }
-                },
-                {
-                    "name": "Update Delivery Staff Password",
-                    "request": {
-                        "method": "PUT",
-                        "url": "{{base_url}}/api/delivery-staff/1/password/",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": {
-                                "password": "newpassword123"
-                            }
-                        }
-                    }
-                },
-                {
-                    "name": "Delete Delivery Staff",
-                    "request": {
-                        "method": "DELETE",
-                        "url": "{{base_url}}/api/delivery-staff/1/"
-                    }
-                }
-            ]
-        },
-        {
-            "name": "Deliveries",
-            "item": [
-                {
-                    "name": "List Deliveries",
-                    "request": {
-                        "method": "GET",
-                        "url": "{{base_url}}/api/deliveries/"
-                    }
-                },
-                {
-                    "name": "Create Delivery",
-                    "request": {
-                        "method": "POST",
-                        "url": "{{base_url}}/api/deliveries/",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": {
-                                "blood_type": "A+",
-                                "recipient": "John Doe",
-                                "address": "123 Main St"
-                            }
-                        }
-                    }
-                },
-                {
-                    "name": "Retrieve Delivery",
-                    "request": {
-                        "method": "GET",
-                        "url": "{{base_url}}/api/deliveries/1/"
-                    }
-                },
-                {
-                    "name": "Update Delivery",
-                    "request": {
-                        "method": "PUT",
-                        "url": "{{base_url}}/api/deliveries/1/",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": {
-                                "status": "delivered"
-                            }
-                        }
-                    }
-                },
-                {
-                    "name": "Delete Delivery",
-                    "request": {
-                        "method": "DELETE",
-                        "url": "{{base_url}}/api/deliveries/1/"
-                    }
-                }
-            ]
-        },
-        {
-            "name": "Delivery Issues",
-            "item": [
-                {
-                    "name": "List Delivery Issues",
-                    "request": {
-                        "method": "GET",
-                        "url": "{{base_url}}/api/delivery-issues/"
-                    }
-                },
-                {
-                    "name": "Create Delivery Issue",
-                    "request": {
-                        "method": "POST",
-                        "url": "{{base_url}}/api/delivery-issues/",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": {
-                                "description": "Late delivery",
-                                "delivery_id": 1
-                            }
-                        }
-                    }
-                },
-                {
-                    "name": "Retrieve Delivery Issue",
-                    "request": {
-                        "method": "GET",
-                        "url": "{{base_url}}/api/delivery-issues/1/"
-                    }
-                },
-                {
-                    "name": "Update Delivery Issue",
-                    "request": {
-                        "method": "PUT",
-                        "url": "{{base_url}}/api/delivery-issues/1/",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": {
-                                "status": "resolved"
-                            }
-                        }
-                    }
-                },
-                {
-                    "name": "Delete Delivery Issue",
-                    "request": {
-                        "method": "DELETE",
-                        "url": "{{base_url}}/api/delivery-issues/1/"
-                    }
-                }
-            ]
-        },
-        {
             "name": "Authentication",
             "item": [
+                {
+                    "name": "Register",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base_url}}/api/register/",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "username": "newuser",
+                                "password": "newpassword123",
+                                "email": "newuser@example.com",
+                                "first_name": "John",
+                                "last_name": "Doe",
+                                "phone_number": "1234567890",
+                                "address": "123 Main St, City, Country"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Confirm Email",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base_url}}/api/confirm-email/{{confirmation_token}}/"
+                    }
+                },
                 {
                     "name": "Login",
                     "request": {
@@ -242,8 +56,8 @@
                         "body": {
                             "mode": "raw",
                             "raw": {
-                                "username": "staff1",
-                                "password": "password123"
+                                "username": "newuser",
+                                "password": "newpassword123"
                             }
                         }
                     }
@@ -252,37 +66,378 @@
                     "name": "Logout",
                     "request": {
                         "method": "POST",
-                        "url": "{{base_url}}/api/auth/logout/"
+                        "url": "{{base_url}}/api/auth/logout/",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Delivery Staff",
+            "item": [
+                {
+                    "name": "List Delivery Staff",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base_url}}/api/delivery-staff/",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ]
                     }
                 },
                 {
-                    "name": "Register",
+                    "name": "Create Delivery Staff",
                     "request": {
                         "method": "POST",
-                        "url": "{{base_url}}/api/auth/register/",
+                        "url": "{{base_url}}/api/delivery-staff/",
                         "header": [
                             {
                                 "key": "Content-Type",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
                             }
                         ],
                         "body": {
                             "mode": "raw",
                             "raw": {
-                                "username": "newuser",
-                                "password": "newpassword",
-                                "email": "newuser@example.com",
-                                "phone_number": "1234567890",
-                                "address": "123 Main St"
+                                "username": "staff1",
+                                "password": "staffpass123",
+                                "email": "staff1@example.com",
+                                "first_name": "Staff",
+                                "last_name": "One",
+                                "phone_number": "9876543210",
+                                "address": "456 Staff St, City, Country"
                             }
                         }
                     }
                 },
                 {
-                    "name": "Confirm Email",
+                    "name": "Retrieve Delivery Staff",
                     "request": {
                         "method": "GET",
-                        "url": "{{base_url}}/api/auth/confirm-email/{token}/"
+                        "url": "{{base_url}}/api/delivery-staff/1/",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Update Delivery Staff",
+                    "request": {
+                        "method": "PUT",
+                        "url": "{{base_url}}/api/delivery-staff/1/",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "phone_number": "1112223333",
+                                "address": "789 New St, City, Country"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Delivery Staff",
+                    "request": {
+                        "method": "DELETE",
+                        "url": "{{base_url}}/api/delivery-staff/1/",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Get Current User",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base_url}}/api/delivery-staff/me/",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Update Current User",
+                    "request": {
+                        "method": "PUT",
+                        "url": "{{base_url}}/api/delivery-staff/me/",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "first_name": "Updated",
+                                "last_name": "Name"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Deliveries",
+            "item": [
+                {
+                    "name": "List Deliveries",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base_url}}/api/deliveries/",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Create Delivery",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base_url}}/api/deliveries/",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "pickup_location": "Blood Bank A",
+                                "dropoff_location": "Hospital B",
+                                "pickup_time": "2023-05-01T10:00:00Z",
+                                "blood_type": "A+",
+                                "qr_code": "unique_qr_code_123"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Retrieve Delivery",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base_url}}/api/deliveries/1/",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Update Delivery",
+                    "request": {
+                        "method": "PUT",
+                        "url": "{{base_url}}/api/deliveries/1/",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "status": "in_progress"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Delivery",
+                    "request": {
+                        "method": "DELETE",
+                        "url": "{{base_url}}/api/deliveries/1/",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Update Delivery Status",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base_url}}/api/deliveries/1/update_status/",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "status": "completed"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Confirm Delivery",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base_url}}/api/deliveries/1/confirm_delivery/",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "qr_data": "unique_qr_code_123"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Delivery Issues",
+            "item": [
+                {
+                    "name": "List Delivery Issues",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base_url}}/api/delivery-issues/",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Create Delivery Issue",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base_url}}/api/delivery-issues/",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "delivery": 1,
+                                "description": "Traffic delay on route"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Retrieve Delivery Issue",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base_url}}/api/delivery-issues/1/",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Update Delivery Issue",
+                    "request": {
+                        "method": "PUT",
+                        "url": "{{base_url}}/api/delivery-issues/1/",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "description": "Traffic delay resolved, delivery back on track"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Delivery Issue",
+                    "request": {
+                        "method": "DELETE",
+                        "url": "{{base_url}}/api/delivery-issues/1/",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ]
                     }
                 }
             ]
@@ -291,7 +446,17 @@
     "variable": [
         {
             "key": "base_url",
-            "value": "http://your-api-url.com",
+            "value": "http://localhost:8000",
+            "type": "string"
+        },
+        {
+            "key": "auth_token",
+            "value": "your_auth_token_here",
+            "type": "string"
+        },
+        {
+            "key": "confirmation_token",
+            "value": "your_confirmation_token_here",
             "type": "string"
         }
     ]
