@@ -11,6 +11,7 @@ class DeliveryStaff(AbstractUser):
 class Delivery(models.Model):
     STATUS_CHOICES = (
         ('pending', 'Pending'),
+        ('picked_up', 'Picked Up'),
         ('in_progress', 'In Progress'),
         ('completed', 'Completed'),
         ('cancelled', 'Cancelled'),

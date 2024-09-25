@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from django.core.exceptions import ImproperlyConfigured
 from dotenv import load_dotenv
+import dj_database_url
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -69,14 +70,7 @@ WSGI_APPLICATION = 'blood_donation_project.wsgi.application'
 
 # Configure database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': get_env_variable('DB_NAME'),
-        'USER': get_env_variable('DB_USER'),
-        'PASSWORD': get_env_variable('DB_PASSWORD'),
-        'HOST': get_env_variable('DB_HOST'),
-        'PORT': get_env_variable('DB_PORT'),
-    }
+    'default': dj_database_url.config(default=get_env_variable('DATABASE_URL'))
 }
 
 # Password validation
