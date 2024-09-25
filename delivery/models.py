@@ -17,7 +17,7 @@ class Delivery(models.Model):
         ('cancelled', 'Cancelled'),
     )
 
-    delivery_staff = models.ForeignKey(DeliveryStaff, on_delete=models.CASCADE)
+    delivery_staff = models.ForeignKey(DeliveryStaff, on_delete=models.CASCADE, null=True, blank=True)
     pickup_location = models.CharField(max_length=255)
     dropoff_location = models.CharField(max_length=255)
     pickup_time = models.DateTimeField()

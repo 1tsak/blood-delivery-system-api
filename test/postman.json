@@ -2,7 +2,7 @@
     "info": {
         "name": "Blood Donation System API",
         "description": "Postman collection for Blood Donation System APIs",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "_postman_id": "unique-identifier-here",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
@@ -327,6 +327,42 @@
                     }
                 },
                 {
+                    "name": "Scan QR Code",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base_url}}/api/deliveries/1/scan_qr/",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "qr_data": "unique_qr_code_123"
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Successful Scan",
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [],
+                            "body": {
+                                "status": "Delivery picked up",
+                                "delivery_staff": 1
+                            }
+                        }
+                    ]
+                },
+                {
                     "name": "Confirm Delivery",
                     "request": {
                         "method": "POST",
@@ -343,9 +379,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "qr_data": "unique_qr_code_123"
-                            }
+                            "raw": {}
                         }
                     }
                 }

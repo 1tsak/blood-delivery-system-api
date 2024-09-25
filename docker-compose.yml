@@ -8,15 +8,8 @@ services:
       - .:/app
     ports:
       - "8000:8000"
-    environment:
-      - DEBUG=True
-      - SECRET_KEY=your_secret_key_here
-      - ALLOWED_HOSTS=localhost,127.0.0.1
-      - DATABASE_URL=postgres://blooddonation:blooddonation@db:5432/blooddonation
-      - EMAIL_HOST=your_email_host
-      - EMAIL_PORT=your_email_port
-      - EMAIL_HOST_USER=your_email_user
-      - EMAIL_HOST_PASSWORD=your_email_password
+    env_file:
+      - .env
     depends_on:
       - db
 
@@ -24,10 +17,8 @@ services:
     image: postgres:13
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=blooddonation
-      - POSTGRES_USER=blooddonation
-      - POSTGRES_PASSWORD=blooddonation
+    env_file:
+      - .env
 
 volumes:
   postgres_data:

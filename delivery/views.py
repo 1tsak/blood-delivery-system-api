@@ -34,29 +34,21 @@ class DeliveryViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Delivery.objects.filter(delivery_staff=self.request.user)
-
-    @action(detail=True, methods=['POST'])
-    def update_status(self, request, pk=None):
-        delivery = self.get_object()
-        status = request.data.get('status')
-        if status in dict(Delivery.STATUS_CHOICES):
-            delivery.status = status
-            delivery.save()
-            return Response({'status': 'Delivery status updated'})
-        return Response({'error': 'Invalid status'}, status=status.HTTP_400_BAD_REQUEST)
+        # Only return deliveries assigned to the current user or unassigned deliveries
+        return Delivery.objects.filter(Q(delivery_staff=self.request.user) | Q(delivery_staff__isnull=True))
 
     @action(detail=True, methods=['POST'])
     def scan_qr(self, request, pk=None):
         delivery = self.get_object()
         qr_data = request.data.get('qr_data')
         if delivery.qr_code == qr_data:
-            if delivery.status == 'pending':
+            if delivery.status == 'pending' and delivery.delivery_staff is None:
                 delivery.status = 'picked_up'
+                delivery.delivery_staff = request.user
                 delivery.save()
-                return Response({'status': 'Delivery picked up'})
+                return Response({'status': 'Delivery picked up', 'delivery_staff': request.user.id})
             else:
-                return Response({'error': 'Delivery is not in pending status'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error': 'Delivery is not available for pickup'}, status=status.HTTP_400_BAD_REQUEST)
         return Response({'error': 'Invalid QR code'}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['POST'])
@@ -69,12 +61,10 @@ class DeliveryViewSet(viewsets.ModelViewSet):
         return Response({'error': 'Delivery is not in picked up status'}, status=status.HTTP_400_BAD_REQUEST)
 
     def perform_create(self, serializer):
-        delivery = serializer.save(delivery_staff=self.request.user)
-        send_push_notification(
-            self.request.user.fcm_token,
-            "New Delivery Assignment",
-            f"You have a new delivery to {delivery.dropoff_location}"
-        )
+        # Create delivery without assigning staff
+        delivery = serializer.save()
+        # Optionally, you can send a notification to all available staff about the new delivery
+        # send_new_delivery_notification(delivery)
 
 class DeliveryIssueViewSet(viewsets.ModelViewSet):
     queryset = DeliveryIssue.objects.all()
