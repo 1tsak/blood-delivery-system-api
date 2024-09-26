@@ -303,6 +303,27 @@
                             }
                         ]
                     }
+                },
+                {
+                    "name": "Partial Update Delivery",
+                    "request": {
+                        "method": "PATCH",
+                        "url": "{{base_url}}/api/deliveries/1/",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"status\": \"in_progress\"\n}"
+                        }
+                    }
                 }
             ]
         },
