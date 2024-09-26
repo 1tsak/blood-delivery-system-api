@@ -63,7 +63,7 @@ class DeliveryViewSet(viewsets.ModelViewSet):
         delivery = self.get_object()
         qr_data = request.data.get('qr_data')
         if delivery.qr_code == qr_data:
-            if delivery.status == 'pending' and delivery.delivery_staff is None:
+            if delivery.status == 'in_progress' and delivery.delivery_staff is None:
                 delivery.status = 'picked_up'
                 delivery.delivery_staff = request.user
                 delivery.save()
