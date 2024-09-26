@@ -1,13 +1,16 @@
+from django.db.models import Q
 from rest_framework import viewsets, status
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import DeliveryStaff, Delivery, DeliveryIssue
 from .serializers import DeliveryStaffSerializer, DeliverySerializer, DeliveryIssueSerializer
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from django.core.mail import send_mail
 from django.conf import settings
 import uuid
+import traceback
+from rest_framework.authtoken.models import Token
 
 User = get_user_model()
 
@@ -82,21 +85,19 @@ class DeliveryIssueViewSet(viewsets.ModelViewSet):
 def register_user(request):
     serializer = DeliveryStaffSerializer(data=request.data)
     if serializer.is_valid():
-        user = serializer.save()
-        user.is_active = False
-        user.confirmation_token = str(uuid.uuid4())
-        user.save()
+        try:
+            user = serializer.save()
+            user.is_active = True  # Set to True for now
+            user.confirmation_token = str(uuid.uuid4())
+            user.save()
 
-        # Send confirmation email
-        send_mail(
-            'Confirm your email',
-            f'Please click this link to confirm your email: {settings.SITE_URL}/confirm-email/{user.confirmation_token}',
-            settings.DEFAULT_FROM_EMAIL,
-            [user.email],
-            fail_silently=False,
-        )
+            # Comment out email sending for now
+            # send_mail(...)
 
-        return Response({"message": "User registered. Please check your email to confirm registration."}, status=status.HTTP_201_CREATED)
+            return Response({"message": "User registered successfully."}, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            print(traceback.format_exc())
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
@@ -146,3 +147,15 @@ def password_reset_confirm(request, token):
         return Response({"message": "Password reset successful."}, status=status.HTTP_200_OK)
     except User.DoesNotExist:
         return Response({"message": "Invalid token."}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def login_user(request):
+    email = request.data.get('email')
+    password = request.data.get('password')
+    user = authenticate(request, username=email, password=password)
+    if user:
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key}, status=status.HTTP_200_OK)
+    else:
+        return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)

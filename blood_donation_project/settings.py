@@ -103,7 +103,7 @@ USE_L10N = True
 USE_TZ = True
 
 # Configure email
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = get_env_variable('EMAIL_HOST')
 EMAIL_PORT = get_env_variable('EMAIL_PORT')
 EMAIL_USE_TLS = True
@@ -121,6 +121,10 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = 'delivery.DeliveryStaff'
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
@@ -129,3 +133,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Add this near other similar settings
+SITE_URL = os.environ.get('SITE_URL', 'http://localhost:8000')
