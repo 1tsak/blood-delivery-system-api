@@ -47,7 +47,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n  \"email\": \"newuser@example.com\",\n  \"password\": \"newpassword123\"\n}"
+                            "raw": "{\n  \"username\": \"newuser\",\n  \"password\": \"newpassword123\"\n}"
                         }
                     }
                 },
@@ -219,7 +219,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n  \"pickup_location\": {\n    \"address\": \"Blood Bank A\",\n    \"lat\": 40.7128,\n    \"lon\": -74.0060\n  },\n  \"dropoff_location\": {\n    \"address\": \"Hospital B\",\n    \"lat\": 40.7589,\n    \"lon\": -73.9851\n  },\n  \"pickup_time\": \"2023-05-01T10:00:00Z\",\n  \"blood_type\": \"A+\",\n  \"qr_code\": \"unique_qr_code_123\"\n}"
+                            "raw": "{\n  \"pickup_location\": {\n    \"address\": \"Blood Bank A\",\n    \"lat\": 40.7128,\n    \"lon\": -74.0060\n  },\n  \"dropoff_location\": {\n    \"address\": \"Hospital B\",\n    \"lat\": 40.7589,\n    \"lon\": -73.9851\n  },\n  \"pickup_time\": \"2023-05-01T10:00:00Z\",\n  \"blood_type\": \"A+\",\n  \"blood_units\": 2,\n  \"qr_code\": \"unique_qr_code_123\"\n}"
                         }
                     }
                 },
@@ -262,6 +262,19 @@
                     "request": {
                         "method": "DELETE",
                         "url": "{{base_url}}/api/deliveries/1/",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Accept Delivery Job",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base_url}}/api/deliveries/1/accept_job/",
                         "header": [
                             {
                                 "key": "Authorization",
@@ -323,6 +336,19 @@
                             "mode": "raw",
                             "raw": "{\n  \"status\": \"in_progress\",\n  \"pickup_location\": {\n    \"lat\": 40.7135,\n    \"lon\": -74.0065\n  }\n}"
                         }
+                    }
+                },
+                {
+                    "name": "Get Accepted Deliveries",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base_url}}/api/deliveries/accepted_deliveries/",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Token {{auth_token}}"
+                            }
+                        ]
                     }
                 }
             ]

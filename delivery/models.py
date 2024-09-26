@@ -51,6 +51,7 @@ class Delivery(models.Model):
     dropoff_location = models.JSONField()
     pickup_time = models.DateTimeField()
     blood_type = models.CharField(max_length=10)
+    blood_units = models.PositiveIntegerField(default=1)  # Add this line
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

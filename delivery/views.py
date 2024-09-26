@@ -63,13 +63,12 @@ class DeliveryViewSet(viewsets.ModelViewSet):
         delivery = self.get_object()
         qr_data = request.data.get('qr_data')
         if delivery.qr_code == qr_data:
-            if delivery.status == 'in_progress' and delivery.delivery_staff is None:
+            if delivery.status == 'in_progress':
                 delivery.status = 'picked_up'
-                delivery.delivery_staff = request.user
                 delivery.save()
-                return Response({'status': 'Delivery picked up', 'delivery_staff': request.user.id})
+                return Response({'status': 'Delivery picked up'})
             else:
-                return Response({'error': 'Delivery is not available for pickup'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error': 'Delivery is not in progress'}, status=status.HTTP_400_BAD_REQUEST)
         return Response({'error': 'Invalid QR code'}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['POST'])
@@ -86,6 +85,26 @@ class DeliveryViewSet(viewsets.ModelViewSet):
         delivery = serializer.save()
         # Optionally, you can send a notification to all available staff about the new delivery
         # send_new_delivery_notification(delivery)
+
+    @action(detail=True, methods=['POST'])
+    def accept_job(self, request, pk=None):
+        delivery = self.get_object()
+        if delivery.status == 'pending' and delivery.delivery_staff is None:
+            delivery.status = 'in_progress'
+            delivery.delivery_staff = request.user
+            delivery.save()
+            return Response({'status': 'Delivery job accepted', 'delivery_staff': request.user.id})
+        else:
+            return Response({'error': 'Delivery is not available for acceptance'}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['GET'])
+    def accepted_deliveries(self, request):
+        accepted_deliveries = Delivery.objects.filter(
+            delivery_staff=request.user,
+            status__in=['in_progress', 'picked_up']
+        )
+        serializer = self.get_serializer(accepted_deliveries, many=True)
+        return Response(serializer.data)
 
 class DeliveryIssueViewSet(viewsets.ModelViewSet):
     queryset = DeliveryIssue.objects.all()
