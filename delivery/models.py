@@ -47,8 +47,8 @@ class Delivery(models.Model):
     )
 
     delivery_staff = models.ForeignKey(DeliveryStaff, on_delete=models.CASCADE, null=True, blank=True)
-    pickup_location = models.CharField(max_length=255)
-    dropoff_location = models.CharField(max_length=255)
+    pickup_location = models.JSONField()
+    dropoff_location = models.JSONField()
     pickup_time = models.DateTimeField()
     blood_type = models.CharField(max_length=10)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')

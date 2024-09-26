@@ -219,7 +219,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n  \"pickup_location\": \"Blood Bank A\",\n  \"dropoff_location\": \"Hospital B\",\n  \"pickup_time\": \"2023-05-01T10:00:00Z\",\n  \"blood_type\": \"A+\",\n  \"qr_code\": \"unique_qr_code_123\"\n}"
+                            "raw": "{\n  \"pickup_location\": {\n    \"address\": \"Blood Bank A\",\n    \"lat\": 40.7128,\n    \"lon\": -74.0060\n  },\n  \"dropoff_location\": {\n    \"address\": \"Hospital B\",\n    \"lat\": 40.7589,\n    \"lon\": -73.9851\n  },\n  \"pickup_time\": \"2023-05-01T10:00:00Z\",\n  \"blood_type\": \"A+\",\n  \"qr_code\": \"unique_qr_code_123\"\n}"
                         }
                     }
                 },
@@ -253,7 +253,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n  \"pickup_location\": \"Updated Blood Bank A\",\n  \"dropoff_location\": \"Updated Hospital B\",\n  \"pickup_time\": \"2023-05-01T11:00:00Z\",\n  \"blood_type\": \"B+\",\n  \"status\": \"in_progress\",\n  \"qr_code\": \"updated_unique_qr_code_123\"\n}"
+                            "raw": "{\n  \"pickup_location\": {\n    \"address\": \"Updated Blood Bank A\",\n    \"lat\": 40.7130,\n    \"lon\": -74.0062\n  },\n  \"dropoff_location\": {\n    \"address\": \"Updated Hospital B\",\n    \"lat\": 40.7591,\n    \"lon\": -73.9853\n  },\n  \"pickup_time\": \"2023-05-01T11:00:00Z\",\n  \"blood_type\": \"B+\",\n  \"status\": \"in_progress\",\n  \"qr_code\": \"updated_unique_qr_code_123\"\n}"
                         }
                     }
                 },
@@ -321,7 +321,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n  \"status\": \"in_progress\"\n}"
+                            "raw": "{\n  \"status\": \"in_progress\",\n  \"pickup_location\": {\n    \"lat\": 40.7135,\n    \"lon\": -74.0065\n  }\n}"
                         }
                     }
                 }
