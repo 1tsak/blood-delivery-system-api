@@ -90,7 +90,7 @@ class DeliveryViewSet(viewsets.ModelViewSet):
     def accept_job(self, request, pk=None):
         delivery = self.get_object()
         if delivery.status == 'pending' and delivery.delivery_staff is None:
-            delivery.status = 'in_progress'
+            delivery.status = 'picked_up'
             delivery.delivery_staff = request.user
             delivery.save()
             return Response({'status': 'Delivery job accepted', 'delivery_staff': request.user.id})
