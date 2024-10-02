@@ -61,15 +61,12 @@ class DeliveryViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['POST'])
     def scan_qr(self, request, pk=None):
         delivery = self.get_object()
-        qr_data = request.data.get('qr_data')
-        if delivery.qr_code == qr_data:
-            if delivery.status == 'in_progress':
-                delivery.status = 'picked_up'
-                delivery.save()
-                return Response({'status': 'Delivery picked up'})
-            else:
-                return Response({'error': 'Delivery is not in progress'}, status=status.HTTP_400_BAD_REQUEST)
-        return Response({'error': 'Invalid QR code'}, status=status.HTTP_400_BAD_REQUEST)
+        if delivery.status == 'in_progress':
+            delivery.status = 'picked_up'
+            delivery.save()
+            return Response({'status': 'Delivery picked up'})
+        else:
+            return Response({'error': 'Delivery is not in progress'}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['POST'])
     def confirm_delivery(self, request, pk=None):
@@ -89,8 +86,8 @@ class DeliveryViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['POST'])
     def accept_job(self, request, pk=None):
         delivery = self.get_object()
-        if delivery.status == 'pending' and delivery.delivery_staff is None:
-            delivery.status = 'picked_up'
+        if delivery.status.lower() == 'pending' and delivery.delivery_staff is None:
+            delivery.status = 'in_progress'
             delivery.delivery_staff = request.user
             delivery.save()
             return Response({'status': 'Delivery job accepted', 'delivery_staff': request.user.id})
